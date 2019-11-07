@@ -1,3 +1,4 @@
+import { ThemePage } from './../pages/theme/theme';
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
@@ -30,7 +31,8 @@ registerLocaleData(localeFR);
     LoginPage,
     RegisterPage,
     TabsPage,
-    ElevesPage
+    ElevesPage,
+    ThemePage
   ],
   imports: [
     NgCalendarModule,
@@ -47,7 +49,8 @@ registerLocaleData(localeFR);
     LoginPage,
     RegisterPage,
     TabsPage,
-    ElevesPage
+    ElevesPage,
+    ThemePage
   ],
   providers: [
     StatusBar,
