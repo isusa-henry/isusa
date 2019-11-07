@@ -1,0 +1,41 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title>
+      {{ viewTitle }}
+    </ion-title>
+    <ion-buttons end>
+      
+      <button ion-button (click)="changeMode('month')">M</button>
+            <button ion-button (click)="changeMode('week')">W</button>
+            <button ion-button (click)="changeMode('day')">D</button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+ 
+<ion-content>
+<calendar [eventSource]="eventSource"   
+
+        [locale]="calendar.locale"
+        [calendarMode]="calendar.mode"
+        [currentDate]="calendar.currentDate"
+        (onEventSelected)="onEventSelected($event)"
+        (onTitleChanged)="onViewTitleChanged($event)"
+        (onTimeSelected)="onTimeSelected($event)"
+        step="30"
+        startHour="9"
+        endHour="19"
+
+        class="calendar">
+      </calendar>
+      <ion-fab right bottom>
+          <button ion-fab (click)="addEvent()" ><ion-icon name="add"  ></ion-icon></button>
+          <!--<ion-fab-list side="left">
+              <button ion-fab><ion-icon name="bed"></ion-icon></button>
+              <button ion-fab><ion-icon src="assets/img/couche.png"></ion-icon></button>
+              <button ion-fab><ion-icon name="logo-vimeo"></ion-icon></button>
+              <button ion-fab><ion-icon name="logo-googleplus"></ion-icon></button>
+            </ion-fab-list>-->
+        </ion-fab>
+        
+      
+</ion-content>

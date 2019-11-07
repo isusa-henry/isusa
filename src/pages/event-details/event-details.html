@@ -1,0 +1,122 @@
+<ion-header>
+    <ion-navbar color="primary">
+      <ion-buttons start>
+        <button ion-button icon-only (click)="cancel()">
+          <ion-icon name="close"></ion-icon>
+        </button>
+      </ion-buttons>
+      <ion-title>Modifier une Activité</ion-title>
+    </ion-navbar>
+  </ion-header>
+  
+  <ion-content center text-center>
+    <ion-item>
+      <ion-label>{{selectedType}}</ion-label>
+      <!--<ion-select  required  (ionChange)="onChange($event)" [(ngModel)]="event.type" interface="popover">
+        <ion-option value="Sieste" >Sieste</ion-option>
+        <ion-option value="Repas">Repas</ion-option>
+        <ion-option value="Couche">Couche</ion-option>
+        <ion-option value="Douche">Douche</ion-option>
+        <ion-option value="Notes">Notes</ion-option>
+  
+      </ion-select>-->
+    </ion-item>
+    <ion-list>
+  
+      <div [hidden]=showtitle>
+        <ion-item>
+          <ion-input type="text" placeholder="Title" [(ngModel)]="event.title"></ion-input>
+        </ion-item>
+      </div>
+  
+      <div [hidden]=showhstart>
+  
+        <ion-item>
+          <ion-label>Début</ion-label>
+          <ion-datetime displayFormat="DD/MM/YYYY HH:mm" pickerFormat="MMM D:HH:mm" [(ngModel)]="event.startTime"
+             hourValues="7,8,9,10,11,12,13,14,15,16,17,18"></ion-datetime>
+        </ion-item>
+      </div>
+      <div [hidden]=showend>
+        <ion-item>
+          <ion-label>Fin</ion-label>
+          <ion-datetime displayFormat="DD/MM/YYYY HH:mm" pickerFormat="MMM D:HH:mm" [(ngModel)]="event.endTime"
+          hourValues="7,8,9,10,11,12,13,14,15,16,17,18"></ion-datetime>
+        </ion-item>
+      </div>
+  
+  
+      
+      <div [hidden]=showtyperepas>
+          <ion-item>
+              <ion-label>Type de repas</ion-label>
+              <ion-select [(ngModel)]="event.typeRepas" value="Gouter" okText="Ok" cancelText="Annuler">
+                <ion-option value="Gouter">Gouter</ion-option>
+                <ion-option value="Dejeuner">Déjeuner</ion-option>
+                
+          
+              </ion-select>
+            </ion-item>
+      </div>
+      <div [hidden]=showaliment>
+          <ion-item>
+            <ion-input [(ngModel)]="event.aliment" type="text" placeholder="Aliment" ></ion-input>
+          </ion-item>
+      </div>
+      <div [hidden]=showquantiterepas>
+          <ion-item>
+              <ion-label>Quantité</ion-label>
+              <ion-select [(ngModel)]="event.quantite" value="Tout" okText="Ok" cancelText="Annuler">
+                <ion-option value="Tout">Tout</ion-option>
+                <ion-option value="La plupart">La plupart</ion-option>
+                <ion-option value="Un peu">Un peu</ion-option>
+                <ion-option value="Rien">Rien</ion-option>
+  
+                
+          
+              </ion-select>
+            </ion-item>
+      </div>
+      <div [hidden]=showtypecouche>
+          <ion-item>
+              <ion-label>Type</ion-label>
+              <ion-select [(ngModel)]="event.typeCouche" value="PiPi" interface="popover">
+                <ion-option value="PiPi">PiPi</ion-option>
+                <ion-option value="KaKa">KaKa</ion-option>
+                
+  
+                
+          
+              </ion-select>
+            </ion-item>
+      </div>
+      <div [hidden]=shownotes>
+        <ion-item>
+            <ion-label>Notes</ion-label>
+          <ion-textarea [(ngModel)]="event.notes" placeholder=""></ion-textarea>
+        </ion-item>
+      </div>
+    </ion-list>
+  
+    
+    <ion-fab right bottom>
+      <button ion-fab  (click)="editItem({startTime:event.startTime,endTime:event.endTime,title:event.title,typeRepas:event.typeRepas,aliment:event.aliment,quantite:event.quantite,typeCouche:event.typeCouche,notes:event.notes,type:event.type})" ><ion-icon name="checkmark"  ></ion-icon></button>
+      <!--<ion-fab-list side="left">
+          <button ion-fab><ion-icon name="bed"></ion-icon></button>
+          <button ion-fab><ion-icon src="assets/img/couche.png"></ion-icon></button>
+          <button ion-fab><ion-icon name="logo-vimeo"></ion-icon></button>
+          <button ion-fab><ion-icon name="logo-googleplus"></ion-icon></button>
+        </ion-fab-list>-->
+    </ion-fab>
+    <ion-fab left bottom>
+        <button color="red" ion-fab  (click)="deleteItem()" ><ion-icon name="trash"  ></ion-icon></button>
+        <!--<ion-fab-list side="left">
+            <button ion-fab><ion-icon name="bed"></ion-icon></button>
+            <button ion-fab><ion-icon src="assets/img/couche.png"></ion-icon></button>
+            <button ion-fab><ion-icon name="logo-vimeo"></ion-icon></button>
+            <button ion-fab><ion-icon name="logo-googleplus"></ion-icon></button>
+          </ion-fab-list>-->
+      </ion-fab>
+
+    
+  </ion-content>
