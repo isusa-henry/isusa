@@ -74,6 +74,20 @@ export class HomePage {
     console.log("zebbi");
     let modal = this.modalCtrl.create('EventModalPage', { selectedDay: this.selectedDay, id_classe_crud: this.SelectedClasseId, selected_eleve: this.SelectedEleve });
     modal.present();
+    modal.onDidDismiss(data => {
+      if (data) {
+        let eventData = data;
+        eventData.startTime = new Date(data.startTime);
+        eventData.endTime = new Date(data.endTime);
+        let events = this.eventSource;
+        events.push(eventData);
+        this.eventSource = [];
+        setTimeout(() => {
+          this.eventSource = events;
+          console.log(this.eventSource)
+        });
+      }
+    });
   }
 
   onViewTitleChanged(title) {

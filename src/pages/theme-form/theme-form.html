@@ -16,14 +16,26 @@
         <ion-input type="text" placeholder="Title" [(ngModel)]="event.title"></ion-input>
       </ion-item>
     </div>
+    <div>
+      <ion-item>
+          <ion-label>Description</ion-label>
+        <ion-textarea [(ngModel)]="event.description" placeholder=""></ion-textarea>
+      </ion-item>
+    </div>
     <div [hidden]=showhstart>
+      <ion-item>
+          <ion-label>Note</ion-label>
+        <ion-textarea [(ngModel)]="event.note" placeholder=""></ion-textarea>
+      </ion-item>
+    </div>
+    <div>
       <ion-item>
         <ion-label>Début</ion-label>
         <ion-datetime displayFormat="DD/MM/YYYY HH:mm" pickerFormat="MMM D:HH:mm" [(ngModel)]="event.startTime"
            hourValues="7,8,9,10,11,12,13,14,15,16,17,18"></ion-datetime>
       </ion-item>
     </div>
-    <div [hidden]=showend>
+    <div >
       <ion-item>
         <ion-label>Fin</ion-label>
         <ion-datetime displayFormat="DD/MM/YYYY HH:mm" pickerFormat="MMM D:HH:mm" [(ngModel)]="event.endTime"
@@ -34,7 +46,7 @@
 
   
   <ion-fab right bottom>
-    <button ion-fab  (click)="addItem({startTime:event.startTime,endTime:event.endTime,title:event.title})" ><ion-icon name="checkmark"  ></ion-icon></button>
+    <button ion-fab  (click)="addItem({startTime:event.startTime,endTime:event.endTime,title:event.title,description:event.description,note:event.note})" ><ion-icon name="checkmark"  ></ion-icon></button>
     <!--<ion-fab-list side="left">
         <button ion-fab><ion-icon name="bed"></ion-icon></button>
         <button ion-fab><ion-icon src="assets/img/couche.png"></ion-icon></button>

@@ -61,26 +61,52 @@ export class ThemePage {
       console.log('themes on calendar :', this.eventSource);
     });
   }
-  addEvent() {
-    console.log("to modal from theme page : selected classe id", this.ActiveClassId);
-    let modal = this.modalCtrl.create('ThemeFormPage', { selectedDay: this.selectedDay, selectedClasse: this.ActiveClassId });
-    modal.present();
-    modal.onDidDismiss(data => {
-      if (data) {
-        let eventData = data;
+  addEvent(k) {
 
-        eventData.startTime = new Date(data.startTime);
-        eventData.endTime = new Date(data.endTime);
+    console.log("to modal from theme page : selected classe id", this.ActiveClassId,"kk ",k);
+    if(k==1)
+    {
+      let modal = this.modalCtrl.create('ThemeFormPage', { selectedDay: this.selectedDay, selectedClasse: this.ActiveClassId,type:"theme" });
+      modal.present();
+      modal.onDidDismiss(data => {
+        if (data) {
+          let eventData = data;
+  
+          eventData.startTime = new Date(data.startTime);
+          eventData.endTime = new Date(data.endTime);
+  
+          let events = this.eventSource;
+          events.push(eventData);
+          this.eventSource = [];
+          setTimeout(() => {
+            this.eventSource = events;
+            console.log(this.eventSource)
+          });
+        }
+      });
+    }
+    else
+    {
+      let modal = this.modalCtrl.create('ThemeFormPage', { selectedDay: this.selectedDay, selectedClasse: this.ActiveClassId,type:"activite" });
+      modal.present();
+      modal.onDidDismiss(data => {
+        if (data) {
+          let eventData = data;
+  
+          eventData.startTime = new Date(data.startTime);
+          eventData.endTime = new Date(data.endTime);
+  
+          let events = this.eventSource;
+          events.push(eventData);
+          this.eventSource = [];
+          setTimeout(() => {
+            this.eventSource = events;
+            console.log(this.eventSource)
+          });
+        }
+      });
+    }
 
-        let events = this.eventSource;
-        events.push(eventData);
-        this.eventSource = [];
-        setTimeout(() => {
-          this.eventSource = events;
-          console.log(this.eventSource)
-        });
-      }
-    });
   }
 
   changeMode(mode) {

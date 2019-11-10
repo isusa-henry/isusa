@@ -35,7 +35,7 @@ export class EventModalPage {
   minDate = new Date().toISOString();
  
   constructor(public navCtrl: NavController, private navParams: NavParams, public viewCtrl: ViewController,public toastController: ToastController) {
-    this.class_id= this.navParams.get("id_classe_crud_event");
+    this.class_id= this.navParams.get("id_classe_crud");
     this.selected_eleve=this.navParams.get('selected_eleve');
     console.log('test from event modal ',this.class_id);
     this.ref = firebase.database().ref('/classes/' +this.class_id+ '/eleves/'+ this.selected_eleve+'/activites/siestes');

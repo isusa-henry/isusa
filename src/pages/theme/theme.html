@@ -28,13 +28,12 @@
         class="calendar">
       </calendar>
       <ion-fab right bottom>
-          <button ion-fab (click)="addEvent()" ><ion-icon name="add"  ></ion-icon></button>
-          <!--<ion-fab-list side="left">
-              <button ion-fab><ion-icon name="bed"></ion-icon></button>
-              <button ion-fab><ion-icon src="assets/img/couche.png"></ion-icon></button>
-              <button ion-fab><ion-icon name="logo-vimeo"></ion-icon></button>
-              <button ion-fab><ion-icon name="logo-googleplus"></ion-icon></button>
-            </ion-fab-list>-->
+        <button ion-fab  ><ion-icon name="add"  ></ion-icon></button>
+          
+          <ion-fab-list side="left">
+              <button ion-fab (click)="addEvent(1)"><ion-icon name="clipboard"></ion-icon></button>
+              <button ion-fab (click)="addEvent(2)"><ion-icon name="flask"></ion-icon></button>
+            </ion-fab-list>
         </ion-fab>
         
       
