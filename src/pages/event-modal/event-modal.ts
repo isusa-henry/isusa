@@ -22,17 +22,27 @@ export class EventModalPage {
   showquantiterepas=0;
   showtypecouche=0;
   shownotes=0;
+
   ref=firebase.database().ref('siestes/');
   refrepas=firebase.database().ref('repas/');
   refcouche=firebase.database().ref('couches/');
   refdouche=firebase.database().ref('douches/');
 
+  class_id:any;
+  selected_eleve:any;
+
   event = { startTime: new Date().toISOString(), endTime: new Date().toISOString(),title:"", allDay: false,typeRepas:"",aliment:"",quantite:"",typeCouche:"",notes:"",type:"" };
   minDate = new Date().toISOString();
  
   constructor(public navCtrl: NavController, private navParams: NavParams, public viewCtrl: ViewController,public toastController: ToastController) {
-    this.ref.on('value',resp =>{
-      this.items=snapshotToArray(resp);})
+    this.class_id= this.navParams.get("id_classe_crud_event");
+    this.selected_eleve=this.navParams.get('selected_eleve');
+    console.log('test from event modal ',this.class_id);
+    this.ref = firebase.database().ref('/classes/' +this.class_id+ '/eleves/'+ this.selected_eleve+'/activites/siestes');
+    this.refrepas = firebase.database().ref('/classes/' +this.class_id+ '/eleves/'+ this.selected_eleve+'/activites/repas');
+    this.refcouche = firebase.database().ref('/classes/' +this.class_id+ '/eleves/'+ this.selected_eleve+'/activites/couches');
+    this.refdouche = firebase.database().ref('/classes/' +this.class_id+ '/eleves/'+ this.selected_eleve+'/activites/douches');
+
     let preselectedDate = moment(this.navParams.get('selectedDay')).format();
     this.event.startTime = preselectedDate;
     this.event.endTime = preselectedDate;

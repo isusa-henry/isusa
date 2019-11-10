@@ -34,21 +34,21 @@
       <!-- Responsive Layout with Ion Grid-->
       <ion-grid *ngSwitchCase="'regular'">
         <ion-row>
-          <ion-col col-6 col-md-4 col-xl-3 tappable  *ngFor="let image of [1,2,3,4]" (click)="nav($event)">
-            <div class="image-container" [style.background-image]="'url(assets/img/' + image + '.jpg)'" onselect="nav()"></div>
-            <h6>{{image}}</h6>
+          <ion-col col-6 col-md-4 col-xl-3 tappable  *ngFor="let image of eleves_list" (click)="nav(image.key)">
+            <div class="image-container" [style.background-image]="'url(' + image.img_profile+')'"></div>
+            <h6>{{image.nom}}</h6>
           </ion-col>
         </ion-row>
       </ion-grid>
    
       <ion-list *ngSwitchCase="'pinterest'">
-          <ion-item *ngFor="let image of [1,2,3,4]">
+          <ion-item *ngFor="let image of eleves_list">
               <ion-thumbnail item-left >
                   <div class="circular--landscape">
-                <img class="image" src="assets/img/{{image}}.jpg" />
+                <img class="image" src={{image.img_profile}} />
                 </div>
               </ion-thumbnail>
-              <ion-label>{{ image }}</ion-label>
+              <ion-label>{{ image.nom }}</ion-label>
             </ion-item>
       </ion-list>
       <!-- More Pinterest floating gallery style -->

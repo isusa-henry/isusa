@@ -1,0 +1,46 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-buttons start>
+      <button ion-button icon-only (click)="cancel()">
+        <ion-icon name="close"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title>Ajouter un theme</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content center text-center>
+  <ion-list>
+    <div >
+      <ion-item>
+        <ion-input type="text" placeholder="Title" [(ngModel)]="event.title"></ion-input>
+      </ion-item>
+    </div>
+    <div [hidden]=showhstart>
+      <ion-item>
+        <ion-label>Début</ion-label>
+        <ion-datetime displayFormat="DD/MM/YYYY HH:mm" pickerFormat="MMM D:HH:mm" [(ngModel)]="event.startTime"
+           hourValues="7,8,9,10,11,12,13,14,15,16,17,18"></ion-datetime>
+      </ion-item>
+    </div>
+    <div [hidden]=showend>
+      <ion-item>
+        <ion-label>Fin</ion-label>
+        <ion-datetime displayFormat="DD/MM/YYYY HH:mm" pickerFormat="MMM D:HH:mm" [(ngModel)]="event.endTime"
+        hourValues="7,8,9,10,11,12,13,14,15,16,17,18"></ion-datetime>
+      </ion-item>
+    </div>
+  </ion-list>
+
+  
+  <ion-fab right bottom>
+    <button ion-fab  (click)="addItem({startTime:event.startTime,endTime:event.endTime,title:event.title})" ><ion-icon name="checkmark"  ></ion-icon></button>
+    <!--<ion-fab-list side="left">
+        <button ion-fab><ion-icon name="bed"></ion-icon></button>
+        <button ion-fab><ion-icon src="assets/img/couche.png"></ion-icon></button>
+        <button ion-fab><ion-icon name="logo-vimeo"></ion-icon></button>
+        <button ion-fab><ion-icon name="logo-googleplus"></ion-icon></button>
+      </ion-fab-list>-->
+  </ion-fab>
+  
+</ion-content>

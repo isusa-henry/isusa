@@ -1,12 +1,11 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
-import {User} from "../../models/user";
-import {RegisterPage} from '../Register/Register';
-import{AngularFireAuth} from"angularfire2/auth";
-import {HomePage} from '../home/home';
-import {TabsPage} from '../tabs/tabs'
+import { NavController, NavParams, ModalController, ToastController } from 'ionic-angular';
 
 
+import * as firebase from 'firebase';
+import { snapshotToArray } from '../../app/app.firebase.config';
+import { ThemePage } from '../theme/theme';
+//import { ChoixClassePage } from './../choix-classe/choix-classe';
 /**
  * Generated class for the LoginPage page.
  *
@@ -14,33 +13,46 @@ import {TabsPage} from '../tabs/tabs'
  * Ionic pages and navigation.
  */
 
-
 @Component({
   selector: 'page-login',
   templateUrl: 'login.html',
 })
 export class LoginPage {
 
-  user = {} as User;
+  user = { email: "", password: "" };
+  //ref = firebase.database().ref('users/');
 
-  constructor(private afAuth:AngularFireAuth,public navCtrl: NavController, public navParams: NavParams) {
+  constructor(
+    public navCtrl: NavController,
+    private modalCtrl: ModalController,
+    public navParams: NavParams,
+    public toastController: ToastController) {
   }
 
-  async login(user: User){
-     try{
-      const res= await this.afAuth.auth.signInWithEmailAndPassword(user.email,user.password);
-      console.log(res);
-      if (res)
-      {
-        this.navCtrl.push(TabsPage);
+  ionViewDidLoad() {
+    console.log('ionViewDidLoad LoginPage');
+  }
+  login(user) {
+    console.log('sent user from login form : ', user);
+    firebase.database().ref('users').orderByChild("email").equalTo(user.email).once('value').then(
+      (data) => {
+        let usernode = snapshotToArray(data);
+        let user_classes = usernode[0].classes;
+        console.log(' Recieved searched user from firebase : ', usernode, "\n user's classes list : ", user_classes);
+        let modal = this.modalCtrl.create('ChoixClassePage', { user_classes_param: user_classes });
+        modal.present();
+      }, (error) => {
+        this.presentToast("Erreur lors de la récuperation des données users ");
       }
-     }
-     catch(e){
-      console.error(e);
-     }
-
+    );
   }
-  register(){
-    this.navCtrl.push(RegisterPage);
+
+
+  presentToast(text) {
+    const toast = this.toastController.create({
+      message: text,
+      duration: 2000
+    });
+    toast.present();
   }
 }

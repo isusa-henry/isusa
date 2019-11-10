@@ -22,22 +22,25 @@ export class EventDetailsPage {
   showquantiterepas=0;
   showtypecouche=0;
   shownotes=0;
-  ref=firebase.database().ref('siestes/');
-  refrepas=firebase.database().ref('repas/');
-  refcouche=firebase.database().ref('couches/');
-  refdouche=firebase.database().ref('douches/');
+  //ref=firebase.database().ref('siestes/');
+ // refrepas=firebase.database().ref('repas/');
+ // refcouche=firebase.database().ref('couches/');
+ // refdouche=firebase.database().ref('douches/');
   selectedType="";
   selectedID="";
-  
+  class_id="";
+  selected_eleve="";
   event = { startTime: new Date().toISOString(), endTime: new Date().toISOString(),title:"", allDay: false,typeRepas:"",aliment:"",quantite:"",typeCouche:"",notes:"",type:"" };
   minDate = new Date().toISOString();
  
   constructor(public navCtrl: NavController, private navParams: NavParams, public viewCtrl: ViewController,public toastController: ToastController) {
-    this.ref.on('value',resp =>{
-      this.items=snapshotToArray(resp);})
+
+    this.class_id=this.navParams.get("id_classe_crud_event");
+    this.selected_eleve=this.navParams.get('selected_eleve');
+
      this.selectedID = this.navParams.get('selectedId');
      this.selectedType=this.navParams.get('type');
-      
+      console.log('test data from details events selected id :',this.selectedID,"selected class :",this.class_id,"type :",this.selectedType);
     if(this.selectedType==="siestes")
     {
     this.event.startTime=this.navParams.get('startTime').toISOString();
@@ -118,33 +121,29 @@ export class EventDetailsPage {
     if (this.selectedType==="siestes")
     {
       
-      firebase.database().ref(this.selectedType+'/'+this.selectedID).update({startTime:item.startTime,endTime:item.endTime});
-    
-   
-    
-
-    
+   //   firebase.database().ref(this.selectedType+'/'+this.selectedID).update({startTime:item.startTime,endTime:item.endTime});
+      firebase.database().ref("/classes/"+this.class_id+"/eleves/"+ this.selected_eleve+"/activites/"+this.selectedType+'/'+ this.selectedID).update({startTime:item.startTime,endTime:item.endTime});
     
     }
     if (this.selectedType==="repas")
     {
       var start=new Date(item.startTime);
       var end=new Date(start.getTime() + 30*60000);
-      firebase.database().ref(this.selectedType+'/'+this.selectedID).update({startTime:item.startTime,endTime:end.toISOString(),type:item.typeRepas,aliment:item.aliment,quantité:item.quantite})
+      firebase.database().ref("/classes/"+this.class_id+"/eleves/"+ this.selected_eleve+"/activites/"+this.selectedType+'/'+this.selectedID).update({startTime:item.startTime,endTime:end.toISOString(),type:item.typeRepas,aliment:item.aliment,quantité:item.quantite})
       
     }
     if (this.selectedType==="couches")
     {
       var start=new Date(item.startTime);
       var end=new Date(start.getTime() + 30*60000);
-      firebase.database().ref(this.selectedType+'/'+this.selectedID).update({startTime:item.startTime,endTime:end.toISOString(),typeCouche:item.typeCouche})
+      firebase.database().ref("/classes/"+this.class_id+"/eleves/"+ this.selected_eleve+"/activites/"+this.selectedType+'/'+this.selectedID).update({startTime:item.startTime,endTime:end.toISOString(),typeCouche:item.typeCouche})
       
     }
     if (this.selectedType==="douches")
     {
       var start=new Date(item.startTime);
       var end=new Date(start.getTime() + 30*60000);
-      firebase.database().ref(this.selectedType+'/'+this.selectedID).update({startTime:item.startTime,endTime:end.toISOString()})
+      firebase.database().ref("/classes/"+this.class_id+"/eleves/"+ this.selected_eleve+"/activites/"+this.selectedType+'/'+this.selectedID).update({startTime:item.startTime,endTime:end.toISOString()})
       
     }
     this.presentToast("activité modifiée avec succés!");
@@ -159,9 +158,43 @@ export class EventDetailsPage {
   }
   deleteItem()
   {
-    firebase.database().ref(this.selectedType+'/'+this.selectedID).remove();
-    this.presentToast("activité supprimée avec succés!");
-    this.viewCtrl.dismiss();
+    switch (this.selectedType) 
+    {
+        case "siestes":
+            {
+              firebase.database().ref("/classes/"+this.class_id+"/eleves/"+ this.selected_eleve+"/activites/siestes/" + this.selectedID).remove();
+              this.presentToast("sieste supprimée avec succés!");
+              this.viewCtrl.dismiss();
+            }
+            break;
+        case "repas":
+          {
+            firebase.database().ref("/classes/"+this.class_id+"/eleves/"+ this.selected_eleve+"/activites/repas/" + this.selectedID).remove();
+            this.presentToast("repas supprimée avec succés!");
+            this.viewCtrl.dismiss();
+          }
+            break;
+        case "couches":
+            {
+              firebase.database().ref("/classes/"+this.class_id+"/eleves/"+ this.selected_eleve+"/activites/couches/" + this.selectedID).remove();
+              this.presentToast("couche supprimée avec succés!");
+              this.viewCtrl.dismiss();
+            }
+            break;
+        case "douches":
+            {
+              firebase.database().ref("/classes/"+this.class_id+"/eleves/"+ this.selected_eleve+"/activites/douches/" + this.selectedID).remove();
+              this.presentToast("douche supprimée avec succés!");
+              this.viewCtrl.dismiss();
+            }
+            break;
+        default:
+            {
+              this.presentToast("type de l'activite non reconnue ..");
+              this.viewCtrl.dismiss();
+            }
+    }
+
   }
   
  

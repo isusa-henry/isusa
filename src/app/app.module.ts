@@ -7,9 +7,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
-import { LoginPage } from '../pages/Login/Login';
 
-import { RegisterPage } from '../pages/Register/Register';
 
 import {AngularFireModule} from'angularfire2';
 import {FIREBASE_CONFIG} from './app.firebase.config';
@@ -20,6 +18,7 @@ import { registerLocaleData } from '@angular/common';
 import localeFR from '@angular/common/locales/fr';
 import {TabsPage} from '../pages/tabs/tabs';
 import {ElevesPage} from '../pages/eleves/eleves';
+import { LoginPage } from '../pages/login/login';
 
 
 registerLocaleData(localeFR);
@@ -27,12 +26,11 @@ registerLocaleData(localeFR);
 @NgModule({
   declarations: [
     MyApp,
-    HomePage,
-    LoginPage,
-    RegisterPage,
+    HomePage,  
     TabsPage,
     ElevesPage,
-    ThemePage
+    ThemePage,
+    LoginPage
   ],
   imports: [
     NgCalendarModule,
@@ -46,11 +44,10 @@ registerLocaleData(localeFR);
   entryComponents: [
     MyApp,
     HomePage,
-    LoginPage,
-    RegisterPage,
     TabsPage,
     ElevesPage,
-    ThemePage
+    ThemePage,
+    LoginPage
   ],
   providers: [
     StatusBar,
